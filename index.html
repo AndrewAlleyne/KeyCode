@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>KeyCode</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+        body {
+            background-color: #DDDDDD;
+        }
+
+        .container {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            margin: 0;
+            margin: 0 auto;
+            top: 20%;
+            left: 20%;
+            right: 20%;
+            position: fixed;
+            text-align: center;
+            font-size: 2vh;
+            z-index: 2e;
+        }
+
+        .container h2 {
+            font-size: 25vw;
+            text-shadow: 50px 50px 25px rgba(37, 36, 36, 0.5);
+            /* padding-left: 100px;
+            margin-top: 75px; */
+            margin: 0px;
+            color: #c2bebeea;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .array {
+            margin: 3vw;
+            position: relative;
+            z-index: -1;
+
+
+        }
+
+        .array p {
+            display: inline-block;
+            font-size: 30px;
+            font-weight: 900;
+            padding: 12px;
+            animation: example 1s infinite;
+            animation-direction: alternate;
+            /* or: normal */
+            /* animation-fill-mode: forwards; */
+            color: lightseagreen;
+            animation-timing-function: cubic-bezier(0.1, -0.6, 0.2, 0);
+
+        }
+
+        /* TODO */
+        @keyframes example {
+            0% {
+                /* color:transparent; */
+                motion-rotation: reverser;
+            }
+
+            10% {
+                color: lightseagreen;
+                transform: rotate(0deg);
+
+            }
+
+            50% {
+                color: #c2bebeea;
+                font-size: 30px;
+                transform: rotate(2deg);
+
+            }
+
+            100% {
+                transform: rotate(-2deg);
+
+            }
+        }
+
+        #keypressed {
+            font-size: 100px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        #keycode {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>KeyCoder</h2>
+
+        <div id="keycode"> </div>
+
+        <div id="keypressed"></div>
+    </div>
+    <div id="keyHistory">
+
+    </div>
+    <script>
+        var keyCode = document.getElementById("keycode");
+        var keyPressed = document.getElementById("keypressed");
+        var keyHistory = document.getElementById("keyHistory");
+        var arrhist = keyHistory.className = "array";
+
+        console.log(keyHistory.offsetHeight);
+        //listen for key presed. 
+        document.addEventListener("keydown", keyIs);
+
+        function keyIs(e) {
+            keyhist(e.keyCode);
+
+            keyCode.innerHTML = `<p> ${e.key} </p> `;
+            keyPressed.innerHTML = `<p> ${e.keyCode} </p> `;
+
+        }
+
+        document.addEventListener("keyup", clear);
+
+        function clear() {
+            keyCode.innerHTML = " ";
+            keyPressed.innerHTML = " ";
+
+        }
+
+        function keyhist(keyCode) {
+            keyHistory.innerHTML += `<p>${keyCode}</p> `;
+            pageScroll(keyHistory)
+
+        }
+
+        function pageScroll(keyHistory) {
+            console.log(keyHistory.offsetHeight + "  " + document.body.parentElement.clientHeight);
+
+
+            if (keyHistory.offsetHeight > document.body.parentElement.clientHeight) {
+                console.log("document extended");
+
+                window.scrollTo({
+                    top: keyHistory.offsetHeight, behavior: 'smooth'
+                });
+
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>
